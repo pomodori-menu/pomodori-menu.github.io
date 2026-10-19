@@ -1,6 +1,7 @@
 {
  "currency": "₺",
  "prices": {
+  "test-corba": 670,
   "da-pomodori-napoli": 520,
   "aglio-e-olio": 520,
   "al-pesto-genovese": 550,
