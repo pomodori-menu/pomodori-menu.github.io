@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pomodori — Menü</title>
+<meta name="description" content="Pomodori taze makarna menüsü">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:,">
+<style>
+/* Copperplate: ticari font. Kullanıcı kendi lisanslı dosyasını fonts/ klasörüne koyar (bkz. README).
+   local() ilk sırada: cihazda kuruluysa (iOS/macOS) hiçbir şey indirilmez. */
+@font-face{font-family:"Copperplate";font-weight:400;font-display:swap;
+  src:local("Copperplate"),local("Copperplate-Light"),url(fonts/copperplate.otf) format("opentype")}
+@font-face{font-family:"Copperplate";font-weight:700;font-display:swap;
+  src:local("Copperplate Bold"),local("Copperplate-Bold"),url(fonts/copperplate.otf) format("opentype")}
+/* Arapça: isteğe bağlı, yalnızca html[lang=ar] iken kullanılır ve o zaman indirilir. */
+@font-face{font-family:"PomodoriAr";font-weight:400 700;font-display:swap;
+  src:url(fonts/arabic-subset.woff2) format("woff2")}
+
+:root{
+  --red:#e10000;        /* Word: FF0000; küçük/orta metinde kontrast için biraz koyulaştırıldı */
+  --head:#3a3a3a;       /* Word: kategori başlığı */
+  --ink:#111;           /* Word: gövde metni siyah */
+  --mute:#555;          /* Word: madde işareti ve ikincil metin */
+  --line:#e6e2dc;
+  --bg:#fff;
+  --f-head:"Copperplate","Copperplate Gothic Light",Optima,"Trebuchet MS",Candara,sans-serif;
+  --f-body:"Copperplate","Copperplate Gothic Light",Optima,"Trebuchet MS",Candara,sans-serif;
+  --f-logo:Impact,Haettenschweiler,"Arial Narrow Bold","Roboto Condensed",sans-serif;
+  --f-text:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --nav-h:3.25rem;
+}
+html[lang=ar]{
+  --f-head:"PomodoriAr","Geeza Pro","Noto Naskh Arabic","Noto Sans Arabic","Droid Arabic Naskh",Tahoma,sans-serif;
+  --f-body:var(--f-head);--f-text:var(--f-head);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;
+  scroll-padding-block-start:calc(var(--nav-h) + 3.1rem)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(.9375rem,3.9vw,1.0625rem)/1.5 var(--f-text);
+  padding-inline:max(1rem,env(safe-area-inset-left)) max(1rem,env(safe-area-inset-right));padding-block-end:env(safe-area-inset-bottom)}
+.wrap{max-width:42rem;margin-inline:auto}
+button{font:inherit;color:inherit}
+
+/* Üst bölüm: logo + dil seçici */
+header{padding-block:.75rem .25rem;text-align:center}
+.logo{font:700 clamp(2.75rem,15vw,4.5rem)/1 var(--f-logo);color:var(--red);letter-spacing:.01em;margin:0}
+html[lang=ar] .logo{font-family:var(--f-logo)}
+.langs{direction:ltr;display:flex;justify-content:center;gap:.25rem;margin-block:.5rem 0;padding:0;list-style:none}
+.langs button{min-width:2.75rem;min-height:2.75rem;padding:0 .5rem;border:1px solid transparent;border-radius:.5rem;background:none;
+  font:700 .875rem/1 var(--f-text);color:var(--mute);letter-spacing:.04em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.langs button[aria-pressed=true]{color:var(--red);border-color:var(--red)}
+.langs button:focus-visible,.cats a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* Yapışkan kategori çubuğu */
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-block-end:1px solid var(--line);margin-inline:calc(-1 * max(1rem,env(safe-area-inset-left)))}
+.cats{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  padding-inline:max(.75rem,env(safe-area-inset-left));min-height:var(--nav-h);align-items:center;overscroll-behavior-x:contain}
+.cats::-webkit-scrollbar{display:none}
+.cats a{flex:none;display:flex;align-items:center;min-height:2.75rem;padding:0 .8rem;border-radius:2rem;color:var(--head);text-decoration:none;
+  font:700 .875rem/1 var(--f-head);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+html[lang=ar] .cats a{text-transform:none;letter-spacing:0;font-size:1rem}
+.cats a[aria-current=true]{background:var(--red);color:#fff}
+
+/* Menü */
+main{min-height:70vh;padding-block-end:1rem}
+section{padding-block-start:1.5rem}
+h2{margin:0 0 .5rem;font:400 clamp(1.5rem,6.6vw,2.25rem)/1.15 var(--f-head);color:var(--head);text-transform:uppercase;letter-spacing:.04em;
+  border-block-end:1px solid var(--line);padding-block-end:.4rem}
+html[lang=ar] h2{text-transform:none;letter-spacing:0;font-weight:700}
+.item{padding-block:.75rem;border-block-end:1px solid var(--line);position:relative}
+.item:last-child{border-block-end:0}
+.row{display:flex;align-items:baseline;gap:.75rem;justify-content:space-between}
+.name{margin:0;font:700 clamp(1.05rem,4.7vw,1.3rem)/1.25 var(--f-head);color:var(--red);flex:1;min-width:0;overflow-wrap:anywhere;
+  padding-inline-start:1.1rem;position:relative}
+.name::before{content:"";position:absolute;inset-inline-start:0;top:.45em;width:.5em;height:.5em;border-radius:50%;background:var(--mute)}
+html[lang=ar] .name{font-size:clamp(1.1rem,4.9vw,1.35rem)}
+.price{flex:none;font:400 clamp(1rem,4.4vw,1.15rem)/1.25 var(--f-head);color:var(--ink);white-space:nowrap;
+  direction:ltr;unicode-bidi:isolate;font-variant-numeric:lining-nums tabular-nums}
+.desc{margin:.2rem 0 0;padding-inline-start:1.1rem;color:var(--ink);font-size:clamp(.9rem,3.8vw,1rem);max-width:36rem}
+html[lang=ar] .desc{line-height:1.7}
+/* İçecek / ekstra: Word'de 12pt düz liste */
+.compact .item{padding-block:.45rem}
+.compact .name{color:var(--ink);font-weight:400;font-size:clamp(1rem,4.3vw,1.125rem)}
+bdi{unicode-bidi:isolate}
+footer{padding-block:1.5rem 2rem;text-align:center;color:var(--red);font:700 clamp(.9rem,3.8vw,1.05rem)/1.5 var(--f-head)}
+footer small{display:block;margin-block-start:.75rem;color:var(--mute);font:400 .8125rem/1.4 var(--f-text)}
+.msg{padding:3rem 0;text-align:center;color:var(--mute)}
+.msg button{margin-block-start:1rem;min-height:2.75rem;padding:0 1.25rem;border:1px solid var(--red);border-radius:.5rem;background:none;color:var(--red);font-weight:700;cursor:pointer}
+@media (min-width:48em){body{font-size:1.0625rem}.item{padding-block:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="logo">POMODORI</h1>
+    <ul class="langs" id="langs" aria-label="Dil / Language">
+      <li><button type="button" data-l="tr" lang="tr" aria-pressed="true">TR</button></li>
+      <li><button type="button" data-l="en" lang="en" aria-pressed="false">EN</button></li>
+      <li><button type="button" data-l="de" lang="de" aria-pressed="false">DE</button></li>
+      <li><button type="button" data-l="it" lang="it" aria-pressed="false">IT</button></li>
+      <li><button type="button" data-l="ar" lang="ar" aria-pressed="false">عربي</button></li>
+    </ul>
+  </header>
+  <nav id="nav" aria-label="Kategoriler"><div class="cats" id="cats"></div></nav>
+  <main id="menu" aria-live="polite"></main>
+  <footer id="foot"></footer>
+</div>
+<noscript><p style="text-align:center;padding:2rem">Menü için JavaScript gerekli / JavaScript is required.</p></noscript>
+<script>
+(function(){
+"use strict";
+var LANGS=["tr","en","de","it","ar"],$=function(i){return document.getElementById(i)};
+var menu=$("menu"),cats=$("cats"),foot=$("foot"),cur="",io=null,req=0;
+
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function pickLang(){
+  var q=(location.search.match(/[?&]lang=([a-z]{2})/)||[])[1];
+  var s=store("lang");
+  return LANGS.indexOf(q)>-1?q:LANGS.indexOf(s)>-1?s:"tr";
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+/* Sürüm: version.json her zaman doğrulanır (ETag ile 304, ~birkaç bayt). Veri dosyaları ?v=<sürüm> ile
+   adreslenir; sürüm değişmedikçe tarayıcı önbelleğinden gelir, değiştiğinde anında yenilenir. */
+function getJSON(url,opt){return fetch(url,opt).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+function version(){return getJSON("data/version.json",{cache:"no-cache"}).then(function(j){return j.v}).catch(function(){return store("ver")||"0"})}
+
+function load(lang){
+  var id=++req;
+  menu.innerHTML='<p class="msg">…</p>';
+  version().then(function(v){
+    store("ver",v);
+    return Promise.all([getJSON("data/menu-"+lang+".json?v="+v),getJSON("data/prices.json?v="+v)]);
+  }).then(function(r){ if(id===req) render(lang,r[0],r[1]); })
+  .catch(function(){ if(id!==req)return;
+    menu.innerHTML='<div class="msg"><p>Menü yüklenemedi · Could not load the menu</p><button type="button" id="retry">↻</button></div>';
+    $("retry").onclick=function(){load(lang)};
+  });
+}
+
+function render(lang,d,p){
+  var de=document.documentElement;
+  de.lang=lang;de.dir=d.dir;cur=lang;
+  document.title=d.ui.title;
+  var m=document.querySelector('meta[name=description]');if(m)m.content=d.ui.desc;
+  $("nav").setAttribute("aria-label",d.ui.nav);
+  $("langs").setAttribute("aria-label",d.ui.lang);
+  Array.prototype.forEach.call(document.querySelectorAll("#langs button"),function(b){b.setAttribute("aria-pressed",String(b.dataset.l===lang))});
+  var cur_=p.currency,pr=p.prices,nav="",html="";
+  d.categories.forEach(function(c){
+    if(!c.items.length)return; /* boş kategori müşteriye gösterilmez */
+    nav+='<a href="#c-'+c.id+'" data-c="c-'+c.id+'">'+esc(c.name)+'</a>';
+    html+='<section id="c-'+c.id+'"'+(c.compact?' class="compact"':'')+'><h2>'+esc(c.name)+'</h2>';
+    c.items.forEach(function(it){
+      var price=pr[it.id];
+      html+='<article class="item"><div class="row"><h3 class="name"><bdi>'+esc(it.name)+'</bdi></h3>'+
+        (price!=null?'<span class="price">'+price+'&nbsp;'+cur_+'</span>':'')+'</div>'+
+        (it.desc?'<p class="desc">'+esc(it.desc)+'</p>':'')+'</article>';
+    });
+    html+='</section>';
+  });
+  cats.innerHTML=nav;menu.innerHTML=html;
+  foot.innerHTML=esc(d.ui.note)+'<small>'+esc(d.ui.currencyNote)+'</small>';
+  cats.scrollLeft=0;
+  spy();
+}
+
+/* Aktif kategoriyi vurgula */
+function spy(){
+  if(io)io.disconnect();
+  if(!("IntersectionObserver" in window))return;
+  var links={};Array.prototype.forEach.call(cats.children,function(a){links[a.dataset.c]=a});
+  io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      Object.keys(links).forEach(function(k){links[k].removeAttribute("aria-current")});
+      var a=links[e.target.id];if(!a)return;
+      a.setAttribute("aria-current","true");
+      var l=a.offsetLeft,w=cats.clientWidth,rtl=document.dir==="rtl"||document.documentElement.dir==="rtl";
+      if(!rtl){cats.scrollTo({left:l-(w-a.offsetWidth)/2,behavior:"smooth"})}
+      else a.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+    });
+  },{rootMargin:"-30% 0px -65% 0px"});
+  Array.prototype.forEach.call(menu.querySelectorAll("section"),function(s){io.observe(s)});
+}
+
+$("langs").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b||b.dataset.l===cur)return;
+  store("lang",b.dataset.l);
+  try{var u=new URL(location.href);u.searchParams.delete("lang");history.replaceState(null,"",u)}catch(x){}
+  load(b.dataset.l);
+});
+load(pickLang());
+})();
+</script>
+</body>
+</html>
