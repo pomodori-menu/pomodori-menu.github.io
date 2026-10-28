@@ -40,9 +40,10 @@
   "fuse-tea": 180,
   "coca-cola": 180,
   "coca-cola-zero": 180,
-  "caffe-latte": 180,
-  "cappuccino": 180,
   "espresso": 200,
-  "americano": 250
+  "churchill": 200,
+  "gennaro": 220,
+  "americano": 250,
+  "clausthaler": 300
  }
 }
