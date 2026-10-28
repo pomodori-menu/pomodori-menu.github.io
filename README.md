@@ -16,10 +16,11 @@ Sürüm değişmediyse dosyalar tarayıcı önbelleğinden gelir; değiştiyse h
 İlk açılışta yalnızca seçili dilin JSON'u + `prices.json` + `version.json` indirilir (≈ 6–8 KB/dil, sıkıştırılmadan).
 
 ## Fontlar (`fonts/`)
+- **Cormorant Garamond** (açıklamalar, latin + latin-ext) ve **Amiri** (Arapça) SIL Open Font License ile ücretsizdir; lisans metinleri `fonts/LICENSE-*.txt`. Kaynak: npm `@fontsource` paketleri. Amiri yalnızca Arapça seçilince indirilir.
+
 - **Copperplate** ticari bir fonttur; lisans sorumluluğu sizdedir. `fonts/copperplate.otf` (31 KB, tek ağırlık; kalın yazı Android'de sentetik) kullanılıyor. WOFF2'ye çevirip (fonttools+brotli) yalnızca Latin + Türkçe karakterlere subset etmek boyutu azaltır. iPhone/Mac'te cihazda kuruluysa (`local()`) hiç indirilmez.
   Dosya yoksa başlıklar Optima/Trebuchet/sans-serif yedeğine düşer (sayfa yine okunaklı).
-- **Arapça:** `fonts/arabic-subset.woff2` (isteğe bağlı; yalnızca Arapça seçilince indirilir). Yoksa cihaz Arapça fontu kullanılır (iOS Geeza Pro, Android Noto Naskh/Sans Arabic).
-  Lisansı uygun (ör. OFL) bir fontu yalnızca gerekli Arapça + rakam aralığıyla subset edip ekleyin.
+- **Arapça:** Amiri (`fonts/amiri-arabic-400.woff2`, ~108 KB, yalnızca Arapça sayfada). İleride subset edilerek küçültülebilir.
 - Logo: Word'de görsel yoktu; "POMODORI" Impact ile yazılmış metindi. Android'de Impact yoktur; marka SVG logonuz varsa `.logo` yerine koyun.
 
 ## İnsan kontrolü
