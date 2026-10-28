@@ -154,6 +154,9 @@ function load(lang){
   });
 }
 
+/* Her bölümde ürünler ucuzdan pahalıya (seçenekli ürünlerde en düşük fiyat); eşitlikte menü sırası korunur. */
+function lowest(p){if(p==null)return Infinity;if(typeof p==="object"){var v=Object.keys(p).map(function(k){return p[k]});return v.length?Math.min.apply(null,v):Infinity}return p}
+function sortItems(items,pr){return items.map(function(it,i){return{it:it,i:i,p:lowest(pr[it.id])}}).sort(function(a,b){return a.p-b.p||a.i-b.i}).map(function(x){return x.it})}
 function render(lang,d,p){
   var de=document.documentElement;
   de.lang=lang;de.dir=d.dir;cur=lang;
@@ -167,7 +170,7 @@ function render(lang,d,p){
     if(!c.items.length)return; /* boş kategori müşteriye gösterilmez */
     nav+='<a href="#c-'+c.id+'" data-c="c-'+c.id+'">'+esc(c.name)+'</a>';
     html+='<section id="c-'+c.id+'"'+(c.compact?' class="compact"':'')+'><h2>'+esc(c.name)+'</h2>';
-    c.items.forEach(function(it){
+    sortItems(c.items,pr).forEach(function(it){
       var price=pr[it.id],ph="";
       if(price!=null&&typeof price==="object"&&it.variants&&it.variants.length){
         var vs=it.variants.filter(function(v){return price[v.k]!=null}),min=Math.min.apply(null,vs.map(function(v){return price[v.k]}));
