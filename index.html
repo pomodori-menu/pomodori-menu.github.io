@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pomodori — Menü</title>
 <meta name="description" content="Pomodori taze makarna menüsü">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#f8f3e8">
 <link rel="icon" href="data:,">
 <style>
 /* Copperplate: ticari font. Kullanıcı kendi lisanslı dosyasını fonts/ klasörüne koyar (bkz. README).
@@ -23,8 +23,8 @@
   --head:#3a3a3a;       /* Word: kategori başlığı */
   --ink:#111;           /* Word: gövde metni siyah */
   --mute:#555;          /* Word: madde işareti ve ikincil metin */
-  --line:#e6e2dc;
-  --bg:#fff;
+  --line:#e4dac6;
+  --bg:#f8f3e8;       /* kırık beyaz, krem tonu */
   --f-head:"Copperplate","Copperplate Gothic Light",Optima,"Trebuchet MS",Candara,sans-serif;
   --f-body:"Copperplate","Copperplate Gothic Light",Optima,"Trebuchet MS",Candara,sans-serif;
   --f-logo:Impact,Haettenschweiler,"Arial Narrow Bold","Roboto Condensed",sans-serif;
@@ -91,7 +91,7 @@ html[lang=ar] .desc{line-height:1.7}
 .vbtn .c{width:.5rem;height:.5rem;border-inline-end:2px solid var(--red);border-block-end:2px solid var(--red);transform:rotate(45deg) translate(-.1rem,-.1rem);transition:transform .15s}
 .vbtn[aria-expanded=true] .c{transform:rotate(-135deg) translate(-.1rem,-.1rem)}
 .vbtn:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:.4rem}
-.pop{position:absolute;inset-inline-end:0;top:calc(100% + .25rem);z-index:4;min-width:11.5rem;background:#fff;border:1px solid var(--line);border-radius:.7rem;
+.pop{position:absolute;inset-inline-end:0;top:calc(100% + .25rem);z-index:4;min-width:11.5rem;background:#fffcf5;border:1px solid var(--line);border-radius:.7rem;
   box-shadow:0 8px 24px rgba(0,0,0,.14);padding:.25rem .85rem}
 .pop div{display:flex;justify-content:space-between;gap:1.25rem;padding:.55rem 0;font:400 .9375rem/1.3 var(--f-text)}
 .pop div+div{border-block-start:1px solid var(--line)}
@@ -103,8 +103,9 @@ html[lang=ar] .pop div{font-size:1rem}
 .sl{margin-inline-start:.3em;font:700 .68rem/1 var(--f-head);color:var(--red);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;vertical-align:.1em}
 html[lang=ar] .sl{letter-spacing:0;text-transform:none;font-size:.8rem}
 .pop .sl{vertical-align:baseline}
+.pop div>span:first-child{white-space:nowrap}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.legend{margin:1rem 0 0;padding:.55rem .8rem;border:1px solid var(--line);border-radius:.7rem;background:#fcfaf7;display:flex;align-items:center;gap:.55rem;
+.legend{margin:1rem 0 0;padding:.55rem .8rem;border:1px solid var(--line);border-radius:.7rem;background:#f2ebdb;display:flex;align-items:center;gap:.55rem;
   font:400 .8125rem/1.35 var(--f-text);color:var(--mute)}
 .legend .st{margin:0;width:1.1em;height:1.1em}
 .legend b{font:700 .8125rem/1.35 var(--f-head);color:var(--ink);letter-spacing:.04em;text-transform:uppercase}
