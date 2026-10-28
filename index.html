@@ -45,7 +45,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(.9375rem,3.9v
 button{font:inherit;color:inherit}
 
 /* Üst bölüm: logo + dil seçici */
-header{padding-block:.75rem .25rem;text-align:center}
+header{position:relative;padding-block:.75rem .25rem;text-align:center}
 .logo{font:700 clamp(2.75rem,15vw,4.5rem)/1 var(--f-logo);color:var(--red);letter-spacing:.01em;margin:0}
 html[lang=ar] .logo{font-family:var(--f-logo)}
 .langs{direction:ltr;display:flex;justify-content:center;gap:.25rem;margin-block:.5rem 0;padding:0;list-style:none}
@@ -110,6 +110,11 @@ html[lang=ar] .sl{letter-spacing:0;text-transform:none;font-size:.8rem}
 .legend .st{margin:0;width:1.1em;height:1.1em}
 .legend b{font:700 .8125rem/1.35 var(--f-head);color:var(--ink);letter-spacing:.04em;text-transform:uppercase}
 html[lang=ar] .legend b{letter-spacing:0;text-transform:none;font-size:.9rem}
+.igl{position:absolute;inset-inline-end:-.5rem;top:.5rem;display:flex;align-items:center;justify-content:center;width:2.75rem;height:2.75rem;color:var(--head);border-radius:50%;-webkit-tap-highlight-color:transparent}
+.igi{width:1.5rem;height:1.5rem}
+.igl:focus-visible,.fig:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.fig{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;margin-block-start:.5rem;padding:0 .5rem;color:var(--head);text-decoration:none;font:700 .9rem/1 var(--f-text)}
+.fig .igi{width:1.25rem;height:1.25rem}
 bdi{unicode-bidi:isolate}
 footer{padding-block:1.5rem 2rem;text-align:center;color:var(--red);font:700 clamp(.9rem,3.8vw,1.05rem)/1.5 var(--f-head)}
 footer small{display:block;margin-block-start:.75rem;color:var(--mute);font:400 .8125rem/1.4 var(--f-text)}
@@ -122,6 +127,7 @@ footer small{display:block;margin-block-start:.75rem;color:var(--mute);font:400 
 <div class="wrap">
   <header>
     <h1 class="logo">POMODORI</h1>
+    <a class="igl" id="igl" href="https://www.instagram.com/dapomodori/" target="_blank" rel="noopener noreferrer" aria-label="Instagram: @dapomodori"><svg class="igi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a>
     <ul class="langs" id="langs" aria-label="Dil / Language">
       <li><button type="button" data-l="tr" lang="tr" aria-pressed="true">TR</button></li>
       <li><button type="button" data-l="en" lang="en" aria-pressed="false">EN</button></li>
@@ -199,7 +205,8 @@ function render(lang,d,p){
   });
   if(anySig&&d.ui.sig)html='<p class="legend">'+STAR+'<span><b>'+esc(d.ui.sig)+'</b>'+(d.ui.sigNote?' · '+esc(d.ui.sigNote):'')+'</span></p>'+html;
   cats.innerHTML=nav;menu.innerHTML=html;
-  foot.innerHTML=esc(d.ui.note)+'<small>'+esc(d.ui.currencyNote)+'</small>';
+  foot.innerHTML=esc(d.ui.note)+'<small>'+esc(d.ui.currencyNote)+'</small><a class="fig" href="https://www.instagram.com/dapomodori/" target="_blank" rel="noopener noreferrer">'+'<svg class="igi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>'+'<span>@dapomodori</span>'+(d.ui.follow?'<span class="sr">'+esc(d.ui.follow)+'</span>':'')+'</a>';
+  $("igl").setAttribute("aria-label",(d.ui.follow||'Instagram')+': @dapomodori');
   cats.scrollLeft=0;
   spy();
 }
