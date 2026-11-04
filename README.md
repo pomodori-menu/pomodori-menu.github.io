@@ -1,6 +1,6 @@
 # Pomodori QR Menü
 
-Mobil öncelikli, 5 dilli (TR/EN/DE/IT/AR) statik menü. Derleme adımı yok; GitHub Pages'te çalışır.
+Mobil öncelikli, 6 dilli (TR/EN/DE/IT/RU/AR) statik menü. Derleme adımı yok; GitHub Pages'te çalışır.
 
 ## Fiyat veya ürün güncelleme
 Güncellemeler Claude ile sohbet üzerinden yapılır: `data/` dosyaları düzenlenir ve `main`'e gönderilir (admin paneli ayrı arşivde, yayında değil).
@@ -24,4 +24,4 @@ Sürüm değişmediyse dosyalar tarayıcı önbelleğinden gelir; değiştiyse h
 - Logo: Word'de görsel yoktu; "POMODORI" Impact ile yazılmış metindi. Android'de Impact yoktur; marka SVG logonuz varsa `.logo` yerine koyun.
 
 ## İnsan kontrolü
-TR dışındaki çeviriler **taslaktır** (`"reviewStatus":"draft-needs-human-review"`). Yayından önce anadil konuşuru gözden geçirmeli.
+TR dışındaki çeviriler (RU dahil) **taslaktır** (`"reviewStatus":"draft-needs-human-review"`). Yayından önce anadil konuşuru gözden geçirmeli.
