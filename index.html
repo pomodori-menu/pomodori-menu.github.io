@@ -72,8 +72,10 @@ nav{position:sticky;top:0;z-index:5;background:var(--bg);border-block:1px solid 
 .cats{display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-inline:max(.5rem,env(safe-area-inset-left));min-height:var(--nav-h);align-items:center;overscroll-behavior-x:contain}
 .cats::-webkit-scrollbar{display:none}
 .cats a{flex:none;position:relative;display:flex;align-items:center;min-height:2.75rem;padding:0 .9rem;color:var(--mute);text-decoration:none;
-  font:700 .74rem/1 var(--f-head);text-transform:uppercase;letter-spacing:.16em;white-space:nowrap;-webkit-tap-highlight-color:transparent}
-html[lang=ar] .cats a{text-transform:none;letter-spacing:0;font:400 1.05rem/1 var(--f-head)}
+  font:700 calc(.74rem + 2pt)/1 var(--f-head);text-transform:uppercase;letter-spacing:.16em;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+html[lang=ar] .cats a{text-transform:none;letter-spacing:0;font:400 calc(1.05rem + 2pt)/1 var(--f-head)}
+.cats a.sg{color:var(--red)}
+.cats a.sg .st{width:.8em;height:.8em;margin:0 .4em 0 0;vertical-align:baseline}
 .cats a[aria-current=true]{color:var(--red)}
 .cats a[aria-current=true]::after{content:"";position:absolute;inset-inline:.9rem;bottom:.55rem;height:1.5px;background:var(--red)}
 
@@ -81,6 +83,9 @@ html[lang=ar] .cats a{text-transform:none;letter-spacing:0;font:400 1.05rem/1 va
 main{min-height:70vh;padding-block-end:1rem}
 section{padding-block-start:2.8rem}
 h2{margin:0 0 1.5rem;text-align:center;font:400 clamp(1.3rem,5.8vw,1.75rem)/1.2 var(--f-head);color:var(--ink);text-transform:uppercase;letter-spacing:.2em;padding-inline-start:.2em}
+
+#c-imza .sl{display:none}
+.snote{margin:-.7rem 0 1.4rem;text-align:center;color:var(--mute);font:400 1.05rem/1.4 var(--f-desc)}
 h2::after{content:"";display:block;width:2.4rem;height:1px;background:var(--gold);margin:.85rem auto 0}
 html[lang=ar] h2{text-transform:none;letter-spacing:0;padding:0;font-weight:400;font-size:clamp(1.5rem,6.4vw,1.9rem)}
 .item{padding-block:.8rem;position:relative}
@@ -200,24 +205,26 @@ function render(lang,d,p){
   $("langs").setAttribute("aria-label",d.ui.lang);
   Array.prototype.forEach.call(document.querySelectorAll("#langs button"),function(b){b.setAttribute("aria-pressed",String(b.dataset.l===lang))});
   var cur_=p.currency,pr=p.prices,nav="",html="";
-  var anySig=d.categories.some(function(c){return c.items.some(function(it){return it.sig||(it.variants||[]).some(function(v){return v.sig})})});
-  d.categories.forEach(function(c){
+  var base=null,rest=[];d.categories.forEach(function(c){if(c.id==="imza")base=c;else rest.push(c)});
+  var sigItems=base?base.items.slice():[],seen={};sigItems.forEach(function(it){seen[it.id]=1});
+  rest.forEach(function(c){c.items.forEach(function(it){if(!seen[it.id]&&(it.sig||(it.variants||[]).some(function(v){return v.sig})))sigItems.push(it)})});
+  var all=sigItems.length&&(base||d.ui.sig)?[{id:"imza",name:base?base.name:d.ui.sig,note:d.ui.sigNote||" ",items:sigItems}].concat(rest):rest;
+  all.forEach(function(c){
     if(!c.items.length)return; /* boş kategori müşteriye gösterilmez */
-    nav+='<a href="#c-'+c.id+'" data-c="c-'+c.id+'">'+esc(c.name)+'</a>';
-    html+='<section id="c-'+c.id+'"'+(c.compact?' class="compact"':'')+'><h2>'+esc(c.name)+'</h2>';
+    nav+='<a href="#c-'+c.id+'" data-c="c-'+c.id+'"'+(c.note?' class="sg"':'')+'>'+(c.note?STAR:'')+esc(c.name)+'</a>';
+    html+='<section id="c-'+c.id+'"'+(c.compact?' class="compact"':'')+'><h2>'+esc(c.name)+'</h2>'+(c.note?'<p class="snote">'+esc(c.note)+'</p>':'');
     sortItems(c.items,pr).forEach(function(it){
       var price=pr[it.id],ph="";
       if(price!=null&&typeof price==="object"&&it.variants&&it.variants.length){
         var vs=it.variants.filter(function(v){return price[v.k]!=null}),min=Math.min.apply(null,vs.map(function(v){return price[v.k]}));
-        ph='<span class="vp"><button type="button" class="vbtn" aria-expanded="false" aria-controls="v-'+esc(it.id)+'"><span class="p">'+min+'&nbsp;'+cur_+'</span>'+(vs.some(function(v){return v.sig})?STAR:'')+'<span class="c" aria-hidden="true"></span></button>'+
-          '<span class="pop" id="v-'+esc(it.id)+'" hidden>'+vs.map(function(v){return'<div><span>'+esc(v.name)+(v.sig?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</span><b>'+price[v.k]+'&nbsp;'+cur_+'</b></div>'}).join("")+'</span></span>';
+        ph='<span class="vp"><button type="button" class="vbtn" aria-expanded="false" aria-controls="v-'+c.id+'-'+esc(it.id)+'"><span class="p">'+min+'&nbsp;'+cur_+'</span>'+(vs.some(function(v){return v.sig})?STAR:'')+'<span class="c" aria-hidden="true"></span></button>'+
+          '<span class="pop" id="v-'+c.id+'-'+esc(it.id)+'" hidden>'+vs.map(function(v){return'<div><span>'+esc(v.name)+(v.sig?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</span><b>'+price[v.k]+'&nbsp;'+cur_+'</b></div>'}).join("")+'</span></span>';
       }else if(price!=null)ph='<span class="price">'+price+'&nbsp;'+cur_+'</span>';
       html+='<article class="item"><div class="row"><h3 class="name"><bdi>'+esc(it.name)+'</bdi>'+(it.sig?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</h3>'+(ph?'<span class="ld" aria-hidden="true"></span>':'')+ph+'</div>'+
         (it.desc?'<p class="desc">'+esc(it.desc)+'</p>':'')+'</article>';
     });
     html+='</section>';
   });
-  if(anySig&&d.ui.sig)html='<p class="legend">'+STAR+'<span><b>'+esc(d.ui.sig)+'</b>'+(d.ui.sigNote?' · '+esc(d.ui.sigNote):'')+'</span></p>'+html;
   cats.innerHTML=nav;menu.innerHTML=html;
   foot.innerHTML=esc(d.ui.note)+'<small>'+esc(d.ui.currencyNote)+'</small><a class="fig" href="https://www.instagram.com/dapomodori/" target="_blank" rel="noopener noreferrer">'+'<svg class="igi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>'+'<span>@dapomodori</span>'+(d.ui.follow?'<span class="sr">'+esc(d.ui.follow)+'</span>':'')+'</a>';
   $("igl").setAttribute("aria-label",(d.ui.follow||'Instagram')+': @dapomodori');
