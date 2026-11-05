@@ -7,7 +7,10 @@
   "crema-di-funghi": 900,
   "alla-panna-vegetariani": 950,
   "pollo-e-funghi": 950,
-  "alfredo": 950,
+  "alfredo": {
+   "o1": 950,
+   "o2": 1150
+  },
   "con-peperoni": {
    "o1": 1050,
    "o2": 1250,
@@ -19,6 +22,14 @@
   "monte-carlo": 1050,
   "melanzana": 1050,
   "polpette-al-sugo": 1050,
+  "marinara": 1150,
+  "don-miguel": 1150,
+  "di-manzo": 1250,
+  "montanara": {
+   "o1": 1250,
+   "o2": 1350
+  },
+  "filetto-con-porcini": 1450,
   "ravioli-romani": 1050,
   "ravioli-di-ricotta-e-funghi": {
    "s": 1050,
@@ -26,18 +37,12 @@
   },
   "ravioli-di-ricotta-e-spinaci": 1050,
   "ravioli-di-ricotta-e-spinaci-al-pomodoro": 1050,
-  "marinara": 1150,
-  "don-miguel": 1150,
-  "di-manzo": 1250,
-  "montanara": 1250,
   "nonna": 1250,
-  "filetto-con-porcini": 1450,
   "mediterraneo-forte": 1050,
   "giardino-di-halloumi": 1050,
   "fiamme-dolce": 1050,
   "venti-di-carne": 1250,
   "side-salad": 450,
-  "quina-mediterranea": 625,
   "cuore-di-carciofo": 850,
   "cesare": {
    "o1": 850,
