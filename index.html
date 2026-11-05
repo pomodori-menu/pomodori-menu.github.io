@@ -85,6 +85,8 @@ section{padding-block-start:2.8rem}
 h2{margin:0 0 1.5rem;text-align:center;font:400 clamp(1.3rem,5.8vw,1.75rem)/1.2 var(--f-head);color:var(--ink);text-transform:uppercase;letter-spacing:.2em;padding-inline-start:.2em}
 
 #c-imza .sl{display:none}
+#c-imza .name>.st{margin-inline:0 .55em;width:.8em;height:.8em;vertical-align:.02em}
+#c-imza .vbtn .st{display:none}
 .snote{margin:-.7rem 0 1.4rem;text-align:center;color:var(--mute);font:400 1.05rem/1.4 var(--f-desc)}
 h2::after{content:"";display:block;width:2.4rem;height:1px;background:var(--gold);margin:.85rem auto 0}
 html[lang=ar] h2{text-transform:none;letter-spacing:0;padding:0;font-weight:400;font-size:clamp(1.5rem,6.4vw,1.9rem)}
@@ -220,7 +222,7 @@ function render(lang,d,p){
         ph='<span class="vp"><button type="button" class="vbtn" aria-expanded="false" aria-controls="v-'+c.id+'-'+esc(it.id)+'"><span class="p">'+min+'&nbsp;'+cur_+'</span>'+(vs.some(function(v){return v.sig})?STAR:'')+'<span class="c" aria-hidden="true"></span></button>'+
           '<span class="pop" id="v-'+c.id+'-'+esc(it.id)+'" hidden>'+vs.map(function(v){return'<div><span>'+esc(v.name)+(v.sig?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</span><b>'+price[v.k]+'&nbsp;'+cur_+'</b></div>'}).join("")+'</span></span>';
       }else if(price!=null)ph='<span class="price">'+price+'&nbsp;'+cur_+'</span>';
-      html+='<article class="item"><div class="row"><h3 class="name"><bdi>'+esc(it.name)+'</bdi>'+(it.sig?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</h3>'+(ph?'<span class="ld" aria-hidden="true"></span>':'')+ph+'</div>'+
+      html+='<article class="item"><div class="row"><h3 class="name">'+(c.note?STAR:'')+'<bdi>'+esc(it.name)+'</bdi>'+(it.sig&&!c.note?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</h3>'+(ph?'<span class="ld" aria-hidden="true"></span>':'')+ph+'</div>'+
         (it.desc?'<p class="desc">'+esc(it.desc)+'</p>':'')+'</article>';
     });
     html+='</section>';
