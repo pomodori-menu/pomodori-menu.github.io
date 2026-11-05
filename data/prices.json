@@ -1,6 +1,7 @@
 {
  "currency": "₺",
  "prices": {
+  "filetto-con-porcini": 1450,
   "test-corba": 500,
   "aglio-e-olio": 750,
   "da-pomodori-napoli": 850,
@@ -29,7 +30,6 @@
    "o1": 1250,
    "o2": 1350
   },
-  "filetto-con-porcini": 1450,
   "ravioli-romani": 1050,
   "ravioli-di-ricotta-e-funghi": {
    "s": 1050,
@@ -49,7 +49,7 @@
    "o2": 1150,
    "o3": 1250
   },
-  "rosso-dolce": 1040,
+  "rosso-dolce": 1050,
   "oro-di-mare": 1250,
   "su": 80,
   "soda": 120,
