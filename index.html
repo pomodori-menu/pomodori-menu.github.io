@@ -100,6 +100,9 @@ html[lang=ar] .name{letter-spacing:0}
 .desc{margin:.3rem 0 0;color:#3b372f;font:500 clamp(1rem,4.3vw,1.12rem)/1.4 var(--f-desc);letter-spacing:.004em;max-width:34rem}
 html[lang=ar] .desc{line-height:1.85;letter-spacing:0;font-weight:400;font-size:clamp(1rem,4.2vw,1.12rem)}
 .compact .item{padding-block:.5rem}
+.sub{margin:1.6rem 0 .3rem;text-align:center;font:400 .95rem/1.2 var(--f-head);letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.sub:first-of-type{margin-top:0}
+html[lang=ar] .sub{text-transform:none;letter-spacing:0;font-size:1.1rem}
 .compact .name{font-size:clamp(calc(1.08rem - 1pt),calc(4.8vw - 1pt),calc(1.25rem - 1pt))}
 .vp{position:relative;flex:none}
 .vbtn{display:inline-flex;align-items:center;gap:.3rem;min-height:2.75rem;margin-block:-.7rem;padding:0 .15rem;border:0;background:none;color:var(--ink);
@@ -211,11 +214,14 @@ function render(lang,d,p){
   var sigItems=base?base.items.slice():[],seen={};sigItems.forEach(function(it){seen[it.id]=1});
   rest.forEach(function(c){c.items.forEach(function(it){if(!seen[it.id]&&(it.sig||(it.variants||[]).some(function(v){return v.sig})))sigItems.push(it)})});
   var all=sigItems.length&&(base||d.ui.sig)?[{id:"imza",name:base?base.name:d.ui.sig,note:d.ui.sigNote||" ",items:sigItems}].concat(rest):rest;
+  var gi=-1,gr=[];all=all.filter(function(c){if(/^drinks-/.test(c.id)){if(c.items.length)gr.push(c);return false}return true});
+  if(gr.length){var gc={id:"drinks",name:d.ui.drinks||gr[0].name,compact:true,items:[],groups:gr};gr.forEach(function(g){gc.items=gc.items.concat(g.items)});
+    all.forEach(function(c,i){if(gi<0&&/^(extras)$/.test(c.id))gi=i});if(gi<0)gi=all.length;all.splice(gi,0,gc)}
   all.forEach(function(c){
     if(!c.items.length)return; /* boş kategori müşteriye gösterilmez */
     nav+='<a href="#c-'+c.id+'" data-c="c-'+c.id+'"'+(c.note?' class="sg"':'')+'>'+(c.note?STAR:'')+esc(c.name)+'</a>';
     html+='<section id="c-'+c.id+'"'+(c.compact?' class="compact"':'')+'><h2>'+esc(c.name)+'</h2>'+(c.note?'<p class="snote">'+esc(c.note)+'</p>':'');
-    sortItems(c.items,pr).forEach(function(it){
+    function items(list){sortItems(list,pr).forEach(function(it){
       var price=pr[it.id],ph="";
       if(price!=null&&typeof price==="object"&&it.variants&&it.variants.length){
         var vs=it.variants.filter(function(v){return price[v.k]!=null}),min=Math.min.apply(null,vs.map(function(v){return price[v.k]}));
@@ -224,7 +230,8 @@ function render(lang,d,p){
       }else if(price!=null)ph='<span class="price">'+price+'&nbsp;'+cur_+'</span>';
       html+='<article class="item"><div class="row"><h3 class="name">'+(c.note?STAR:'')+'<bdi>'+esc(it.name)+'</bdi>'+(it.sig&&!c.note?STAR+'<span class="sl">'+esc(d.ui.sig||'')+'</span>':'')+'</h3>'+(ph?'<span class="ld" aria-hidden="true"></span>':'')+ph+'</div>'+
         (it.desc?'<p class="desc">'+esc(it.desc)+'</p>':'')+'</article>';
-    });
+    })}
+    if(c.groups)c.groups.forEach(function(g){html+='<h3 class="sub">'+esc(g.name)+'</h3>';items(g.items)});else items(c.items);
     html+='</section>';
   });
   cats.innerHTML=nav;menu.innerHTML=html;
